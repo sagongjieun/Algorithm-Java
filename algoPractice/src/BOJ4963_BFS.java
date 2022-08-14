@@ -22,12 +22,15 @@ public class BOJ4963_BFS {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer stk = null;
 		
+		// 종료 조건을 만나기 전까지 반복
 		while (true) {
 			stk = new StringTokenizer(br.readLine());
 			w = Integer.parseInt(stk.nextToken());
 			h = Integer.parseInt(stk.nextToken());
 			
-			if (w == 0 && h == 0) break; // 0 0을 만나면 종료
+			// 종료 조건
+			// 0 0 을 만나면 종료
+			if (w == 0 && h == 0) break;
 			
 			map = new int[h][w];
 			for (int i=0; i<h; i++) {
@@ -37,6 +40,7 @@ public class BOJ4963_BFS {
 				}
 			}
 			
+			// 매 테스트케이스마다 섬의 개수와 visited 배열 초기화
 			island = 0;
 			visited = new boolean[h][w];
 			for (int i=0; i<h; i++) {
@@ -63,6 +67,7 @@ public class BOJ4963_BFS {
 			int curY = cur[0];
 			int curX = cur[1];
 			
+			// 8방위 탐색을 하며 조건에 부합하면 해당 좌표를 q에 담기
 			for (int i=0; i<8; i++) {
 				int ny = curY + dy[i];
 				int nx = curX + dx[i];
@@ -74,9 +79,11 @@ public class BOJ4963_BFS {
 			}
 		}
 		
+		// 인접해있는 섬들을 다 탐색하고 나면 1 return
 		return 1;
 	}
 	
+	// 범위 체크 함수
 	public static boolean rangeCheck(int y, int x) {
 		if (y>=0 && x>=0 && y<h && x<w) return true;
 		return false;
