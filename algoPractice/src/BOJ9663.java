@@ -13,41 +13,37 @@ public class BOJ9663 {
 		
 		N = sc.nextInt();
 		answer = 0;
-		chess = new int[N+1];
+		chess = new int[N+1]; // 인덱스 맞추기위해 N+1
 		
-		setQueen(1);
+		setQueen(1); // 인덱스 1부터 퀸 놓기 시작
 		System.out.print(answer);
 	}
 	
-	// 하나의 퀸만 가능한 모든 곳에 놓아보기
-	public static void setQueen(int row) {
+	public static void setQueen(int col) {
 		
-		// 유망성 체크
-		// 직전까지의 상황이 유망하지 않으면 현재 퀸 놓을 필요가 없으니 백트래킹
-		if (!isAvailable(row-1)) return;
-		
-		// 모든 퀸을 다 놓았다면
-		// 모든 퀸의 배치에 성공했다는 의미
-		if (row > N) {
+		// 범위를 벗어나면 == 모든 퀸을 다 놓았다면 정답 +1
+		if (col > N) {
 			answer++;
 			return;
 		}
 		
-		// i = 퀸 번호
-		for (int i = 1; i <= N; i++) {
-			chess[row] = i; // 해당 행에 i번째 퀸 놓기
-			setQueen(row+1); // 다음 행 탐색
+		for (int row = 1; row <= N; row++) {
+			chess[col] = row; // 해당 열에 row행 넣기
+			
+			// 유망성 체크를 통과하면 다음 열 탐색
+			if (isAvailable(col)) setQueen(col + 1);
 		}
 		
 	}
 	
-	public static boolean isAvailable(int row) {
-		// 현재 행의 직전까지 체크하기
-		for (int i = 1; i <= row-1; i++) {
-			// 현재 행과 겹치는 행이 있거나
-			// 현재 행과의 행 차이가 열 차이와 같으면 false return
-			if (chess[i] == chess[row] || 
-					row - i == (Math.abs(chess[row] - chess[i]))) return false;
+	public static boolean isAvailable(int col) {
+
+		// 현재 행의 직전까지 체크
+		for (int i = 1; i <= col - 1; i++) {
+			// 현재 열의 행과 이전의 열의 행이 일치하거나 (같은 행에 존재할 경우)
+			// 열의 차이와 행의 차이가 같을 경우 (대각선에 높여있는 경우) 불가
+			if (chess[i] == chess[col] || 
+					col - i == (Math.abs(chess[col] - chess[i]))) return false;
 		}
 		
 		return true;
