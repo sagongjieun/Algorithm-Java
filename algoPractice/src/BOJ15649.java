@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-// N과 M (1)
+// N과 M (1) - 순열
 
 public class BOJ15649 {
 	
@@ -17,12 +17,12 @@ public class BOJ15649 {
 		visited = new boolean[N];
 		answer = new int[M];
 		
-		DFS(0);
+		permutation(0);
 		
 		System.out.print(sb);
 	}
 	
-	public static void DFS(int depth) {
+	public static void permutation(int depth) {
 		// 재귀의 종료조건
 		if (depth == M) {
 			for (int ans : answer) {
@@ -39,7 +39,7 @@ public class BOJ15649 {
 				visited[i] = true;
 				answer[depth] = i+1;
 				
-				DFS(depth+1);
+				permutation(depth+1);
 				
 				visited[i] = false;
 			}
