@@ -7,7 +7,7 @@ import java.util.StringTokenizer;
 
 // N과 M(12) - 중복된 수를 입력받는 중복조합
 
-public class BOJ15666 {
+public class BOJ15666 { 
 
 	static int N, M;
 	static int[] nums, result;
