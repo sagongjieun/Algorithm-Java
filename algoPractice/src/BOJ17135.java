@@ -78,6 +78,8 @@ public class BOJ17135 {
 							// 현재 궁수와 적의 거리를 구하기
 							int distance = getDistance(ay, ax, ey, ex);
 							
+							if (distance > D) continue;
+							
 							// 가장 거리가 가까운 적으로 갱신
 							if (distance < minDistance) {
 								minDistance = distance;
@@ -91,7 +93,6 @@ public class BOJ17135 {
 									minX = ex;
 								}
 							}
-							else continue;
 						}
 					}
 				}
