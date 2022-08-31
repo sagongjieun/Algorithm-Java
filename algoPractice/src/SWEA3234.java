@@ -11,8 +11,6 @@ public class SWEA3234 {
 	static int N;
 	static int[] nums, chu;
 	static boolean[] isUsed;
-	static ArrayList<Integer> left = new ArrayList<>();
-	static ArrayList<Integer> right = new ArrayList<>();
 	static int answer;
 
 	public static void main(String[] args) throws NumberFormatException, IOException {
@@ -41,6 +39,10 @@ public class SWEA3234 {
 		}
 	}
 
+	/**
+	 * 순열을 이용하여 추들의 순서 조합 구하기
+	 * @param depth : index
+	 */
 	private static void combChu(int depth) {
 		// 재귀 종료조건
 		if (depth == N) {
@@ -53,15 +55,24 @@ public class SWEA3234 {
 		for (int i = 0; i < N; i++) {
 			if (!isUsed[i]) {
 				isUsed[i] = true;
-				chu[depth] = nums[i];
+				chu[depth] = nums[i]; // 이번 턴의 추 순서 조합
 				combChu(depth + 1);
 				isUsed[i] = false;
 			}
 		}
 	}
 
+	/**
+	 * 순열을 이용해 구한 추들의 각 순서 조합에 부분집합을 이용해 무게 확인하기
+	 * @param index
+	 * @param leftSum : 왼쪽 저울의 합
+	 * @param rightSum : 오른쪽 저울의 합
+	 * @param combedChu : 조합된 추의 배열
+	 */
 	private static void checkWeight(int index, int leftSum, int rightSum, int[] combedChu) {
+		// 재귀 종료조건
 		if (index == N) {
+			// 조건을 만족하는 조합이 생기면 정답 + 1
 			answer++;
 			return;
 		}
