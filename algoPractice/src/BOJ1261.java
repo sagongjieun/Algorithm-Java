@@ -86,7 +86,6 @@ public class BOJ1261 {
 						pq.offer(new Node(ny, nx, cur.count + 1)); // 벽을 부순 카운트 + 1
 					}
 				}
-
 			}
 		}
 	}
