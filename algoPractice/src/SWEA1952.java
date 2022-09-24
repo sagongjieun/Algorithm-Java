@@ -39,55 +39,25 @@ public class SWEA1952 {
 				orders[i] = -1;
 			}
 
-			setMenu(0);
+			setMenu(0, 0);
+			
+			answer = Math.min(answer, menus[3]); // 1년치와 비교
 
 			System.out.println("#" + tc + " " + answer);
 		}
 	}
 
-	private static void setMenu(int depth) {
-		if (depth == 12) {
-			int result = getPrice(orders);
-			answer = Math.min(answer, result);
+	private static void setMenu(int month, int price) {
+		if (month >= 12) {
+			answer = Math.min(answer, price);
 			return;
 		}
-
-		for (int i = 0; i < 4; i++) {
-			if (plans[depth] != 0) {
-				orders[depth] = i;
-			}
-			setMenu(depth + 1);
+		
+		if (plans[month] == 0) setMenu(month + 1, price); // 이용계획 없는 달은 패쓰
+		else {
+			setMenu(month + 1, price + (plans[month] * menus[0])); // 1일치
+			setMenu(month + 1, price + menus[1]); // 1달치
+			setMenu(month + 3, price + menus[2]); // 3달치
 		}
-	}
-
-	private static int getPrice(int[] arr) {
-		int price = 0;
-
-		for (int i = 0; i < 12; i++) {
-			// 이용할 계획이 없는 달은 패쓰
-			if (arr[i] == -1) continue;
-
-			// 1일치 이용
-			if (arr[i] == 0) {
-				price += plans[i] * menus[0];
-			}
-			// 1달치 이용
-			else if (arr[i] == 1) {
-				price += menus[1];
-			}
-			// 3달치 이용
-			else if (arr[i] == 2) {
-				price += menus[2];
-				i += 3; // 다음 2달은 건너뛰기
-			}
-			// 1년치 이용
-			else {
-				price = 0;
-				price += menus[3];
-				break;
-			}
-		}
-
-		return price;
 	}
 }
