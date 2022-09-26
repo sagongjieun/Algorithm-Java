@@ -24,6 +24,7 @@ public class BOJ2096 {
 			int b = Integer.parseInt(stk.nextToken());
 			int c = Integer.parseInt(stk.nextToken());
 			
+			// 맨 처음 입력은 각 인덱스가 최소값이면서 최대값
 			if (i == 0) {
 				maxDP[0] = minDP[0] = a;
 				maxDP[1] = minDP[1] = b;
@@ -31,7 +32,9 @@ public class BOJ2096 {
 				continue;
 			}
 			
+			// 현재 입력의 각 인덱스에서 이전 입력에서 더할 수 있는 수를 더했을 때 더 큰 값으로 갱신
 			// DP의 값을 바꿔주는 과정에서 계속 갱신되므로 이전의 값들은 따로 변수에 저장해두기
+			
 			int prevMax0 = maxDP[0], prevMax1 = maxDP[1], prevMax2 = maxDP[2];
 			maxDP[0] = Math.max(prevMax0, prevMax1) + a;
 			maxDP[1] = Math.max(prevMax0, Math.max(prevMax1, prevMax2)) + b;
